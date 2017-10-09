@@ -62,6 +62,12 @@ class PostController: UIViewController {
         field.backgroundColor = UIColor.blue
         field.textColor = UIColor.white
         field.textAlignment = .center
+        
+        var attributes = [String: AnyObject]()
+        attributes[NSForegroundColorAttributeName] = UIColor.white
+        let attributedString = NSAttributedString(string: "Tap to enter location", attributes: attributes)
+        field.attributedPlaceholder = attributedString
+        
         return field
     }()
     
@@ -159,7 +165,15 @@ class PostController: UIViewController {
             URL(string: mediaUrl) != nil {
             ParseClient.shared.postStudentLocation(user: user, mediaUrl: mediaUrl, placemark: placemark) { response in
                 Loader.hide() {
-                    self.cancel()
+                    if response != nil {
+                        self.cancel()
+                    } else {
+                        Alert.notify(
+                            title: "Can't submit",
+                            message: "An error occured while sending data to the server.",
+                            controller: self
+                        )
+                    }
                 }
             }
         } else {

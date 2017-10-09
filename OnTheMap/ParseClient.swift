@@ -33,21 +33,7 @@ class ParseClient {
                 var studentLocations = [StudentLocation]()
                 
                 for student in students {
-                    
-                    guard let firstName = student["firstName"] as? String,
-                        let lastName = student["lastName"] as? String,
-                        let mediaUrl = student["mediaURL"] as? String,
-                        let latitude = student["latitude"] as? Double,
-                        let longitude = student["longitude"] as? Double else { break }
-                    
-                    let studentLocation = StudentLocation(
-                        firstName: firstName,
-                        lastName: lastName,
-                        mediaUrl: mediaUrl,
-                        latitude: latitude,
-                        longitude: longitude
-                    )
-                    
+                    guard let studentLocation = StudentLocation(student) else { break }
                     studentLocations.append(studentLocation)
                 }
                 

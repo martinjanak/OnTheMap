@@ -47,8 +47,7 @@ class MainController: UIViewController {
         Loader.show(controller: self)
         UdacityClient.shared.deleteSession() { _ in
             Loader.hide() {
-                let loginController = LoginController()
-                self.present(loginController, animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }

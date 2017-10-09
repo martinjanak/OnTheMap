@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class StudentLocation {
+struct StudentLocation {
     
     let firstName: String
     let lastName: String
@@ -18,7 +18,16 @@ class StudentLocation {
     let latitude: Double
     let longitude: Double
     
-    init(firstName: String, lastName: String, mediaUrl: String, latitude: Double, longitude: Double) {
+    init?(_ data: [String: AnyObject]) {
+        
+        guard let firstName = data["firstName"] as? String,
+            let lastName = data["lastName"] as? String,
+            let mediaUrl = data["mediaURL"] as? String,
+            let latitude = data["latitude"] as? Double,
+            let longitude = data["longitude"] as? Double else {
+                return nil
+        }
+        
         self.firstName = firstName
         self.lastName = lastName
         self.mediaUrl = mediaUrl
